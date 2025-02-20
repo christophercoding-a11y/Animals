@@ -3,7 +3,7 @@ let count = 1
 class Animal {
     constructor(animalName, species, diet, habitat) {
         this.info = {
-            id: `${species}${count}`,
+            id: count ,
             animalName,
             species,
             diet,
@@ -11,9 +11,8 @@ class Animal {
         }
     }
 
-    getDescription() {
-        console.log(this.info)
-        return `The ${this.info.animalName} is a type of ${this.info.animal.species}. It has a ${this.info.diet} diet and lives in a ${this.info.habitat}habitat.`
+    getDescription(animalName, species, diet, habitat) {
+        return `The ${animalName} is a type of ${species}. It has a ${diet} diet and lives in a ${habitat}habitat.`
     }
 }
 
@@ -25,8 +24,8 @@ submitBtn.addEventListener('click', (e)=> {
     obj = { ...getInfo()}
 
     const animal = new Animal(obj.animalName, obj.species, obj.diet, obj.habitats)
+    count++
 
-    // console.log(animal)
     buildCard(animal.info, animal.getDescription)
 })
 
@@ -56,7 +55,7 @@ const buildCard =(obj, func)=> {
     const card = document.createElement('div')
     card.classList.add('card', 'h-100')
 
-    const cardBody = document.createElement('h2')
+    const cardBody = document.createElement('div')
     cardBody.classList.add('card-body')
 
     const animalName = document.createElement('h2')
@@ -73,7 +72,7 @@ const buildCard =(obj, func)=> {
 
     const description = document.createElement('p')
     description.classList.add('card-text', 'fst-italic')
-    description.innerText = func()
+    description.innerText = func(obj.animalName, obj.species, obj.diet, obj.habitat)
 
     cardBody.appendChild(animalName)
     cardBody.appendChild(species)
